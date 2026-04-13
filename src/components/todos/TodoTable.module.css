@@ -1,0 +1,25 @@
+.tableWrap {
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.th {
+    padding: 11px 16px;
+    text-align: left;
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.row:not(:last-child) .td {
+    border-bottom: 1px solid var(--color-border);
+}
+.td {
+    padding: 12px 16px;
+    font-size: 13px;
+    vertical-align: middle;
+}

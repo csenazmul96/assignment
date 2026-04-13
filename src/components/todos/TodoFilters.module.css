@@ -1,0 +1,12 @@
+.filters {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 16px;
+    border: 1px solid var(--color-border);
+    margin-bottom: 16px;
+}
+.filterGroup {
+    flex: 1;
+    min-width: 180px;
+}
