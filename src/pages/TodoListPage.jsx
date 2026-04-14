@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import {todoStorage} from '../hooks/todoStorage'
-import TodoFilters from '../components/todos/TodoFilters'
-import TodoTable from '../components/todos/TodoTable'
-import Pagination from '../components/todos/Pagination'
+import TodoFilters from '../components/todos/TodoFilters.jsx'
+import TodoTable from '../components/todos/TodoTable.jsx'
+import Pagination from '../components/todos/Pagination.jsx'
 import styles from './TodoListPage.module.css'
 
 const parPage = 10
@@ -114,7 +114,7 @@ export default function TodoListPage() {
                 </div>
             )}
 
-            <TodoTable todos={paginated} isLoading={todosLoading || usersLoading} />
+            <TodoTable todos={paginated}  />
 
             <Pagination
                 currentPage={safePage}

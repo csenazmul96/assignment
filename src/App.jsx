@@ -1,7 +1,7 @@
 import { Routes, Route, NavLink, Navigate } from 'react-router-dom'
-import TodoListPage from './pages/TodoListPage'
-import FormBuilderPage from './pages/FormBuilderPage'
-import FormPreviewPage from './pages/FormPreviewPage'
+import TodoListPage from './pages/TodoListPage.jsx'
+import FormBuilderPage from './pages/FormBuilderPage.jsx'
+import FormPreviewPage from './pages/FormPreviewPage.jsx'
 import styles from './App.module.css'
 
 export default function App() {

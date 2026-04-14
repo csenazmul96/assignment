@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { todoStorage } from '../hooks/todoStorage'
-import FieldRow from '../components/form/FieldRow'
-import AddFieldForm from '../components/form/AddFieldForm'
+import FieldRow from '../components/form/FieldRow.jsx'
+import AddFieldForm from '../components/form/AddFieldForm.jsx'
 import common from '../assets/styles/common.module.css'
 import styles from './FormBuilderPage.module.css'
 

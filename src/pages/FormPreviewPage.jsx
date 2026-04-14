@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { todoStorage } from '../hooks/todoStorage'
 import common from '../assets/styles/common.module.css'
 import styles from './FormPreviewPage.module.css'
-import FormFieldRenderer from '../components/form/FormFieldRenderer'
+import FormFieldRenderer from '../components/form/FormFieldRenderer.jsx'
 
 export default function FormPreviewPage() {
     const [fields] = todoStorage('form-schema', [])
