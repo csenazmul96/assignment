@@ -1,4 +1,4 @@
-# Assignment — React + Vite
+# Assignment — React
 
 A React 19 + Vite application featuring a dynamic form builder, form preview, and a todo list with filtering and pagination.
 
