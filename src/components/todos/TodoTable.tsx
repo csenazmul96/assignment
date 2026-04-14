@@ -4,7 +4,7 @@ import styles from './TodoTable.module.css'
 export default function TodoTable({ todos }) {
     if (todos.length === 0) {
         return (
-            <div className={`${common.card} ${common.emptyState}`}>
+            <div className={`${common.card}`}>
                 No todos match your filters.
             </div>
         )

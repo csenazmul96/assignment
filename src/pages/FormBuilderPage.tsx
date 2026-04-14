@@ -41,7 +41,7 @@ export default function FormBuilderPage() {
     }, [fields])
 
     return (
-        <div className={styles.page}>
+        <div>
             <div className={styles.pageHeader}>
                 <div>
                     <h1 className={styles.pageTitle}>Form Builder</h1>
@@ -66,7 +66,12 @@ export default function FormBuilderPage() {
             </div>
 
             <div className={styles.layout}>
-                <div className={styles.fieldsSection}>
+                <div className={""}>
+                    {fields.length === 0 && (
+                        <div className={`${common.card}`}>
+                            Add a field to get started.
+                        </div>
+                    )}
                     <div className={styles.fieldList}>
                         {fields.map((field, index) => (
                             <FieldRow

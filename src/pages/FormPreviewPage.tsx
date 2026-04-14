@@ -3,65 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { todoStorage } from '../hooks/todoStorage'
 import common from '../assets/styles/common.module.css'
 import styles from './FormPreviewPage.module.css'
-
-function renderField(field, value, onChange) {
-    const { id, type, placeholder, options, label } = field
-
-    if (type === 'textarea') {
-        return (
-            <textarea
-                id={id}
-                className={common.textarea}
-                placeholder={placeholder}
-                value={value ?? ''}
-                onChange={e => onChange(id, e.target.value)}
-            />
-        )
-    }
-
-    if (type === 'select') {
-        const opts = (options ?? '').split(',').map(o => o.trim()).filter(Boolean)
-        return (
-            <select
-                id={id}
-                className={common.select}
-                value={value ?? ''}
-                onChange={e => onChange(id, e.target.value)}
-            >
-                <option value="">Select {label}...</option>
-                {opts.map(opt => (
-                    <option key={opt} value={opt}>{opt}</option>
-                ))}
-            </select>
-        )
-    }
-
-    if (type === 'checkbox') {
-        return (
-            <div className={styles.checkboxRow}>
-                <input
-                    type="checkbox"
-                    id={id}
-                    className={styles.checkbox}
-                    checked={value ?? false}
-                    onChange={e => onChange(id, e.target.checked)}
-                />
-                <label htmlFor={id} className={styles.checkboxLabel}>{label}</label>
-            </div>
-        )
-    }
-
-    return (
-        <input
-            type={type}
-            id={id}
-            className={common.input}
-            placeholder={placeholder}
-            value={value ?? ''}
-            onChange={e => onChange(id, e.target.value)}
-        />
-    )
-}
+import FormFieldRenderer from '../components/form/FormFieldRenderer'
 
 export default function FormPreviewPage() {
     const [fields] = todoStorage('form-schema', [])
@@ -73,13 +15,7 @@ export default function FormPreviewPage() {
     }
 
     const handleSubmit = () => {
-        const missing = fields.filter(f => {
-            const val = values[f.id]
-            if (f.type === 'checkbox') return !val
-            return !val || String(val).trim() === ''
-        })
 
-        // Use field labels as keys in the output
         const output = fields.reduce((acc, field) => {
             acc[field.label] = values[field.id] ?? (field.type === 'checkbox' ? false : '')
             return acc
@@ -98,7 +34,7 @@ export default function FormPreviewPage() {
         return (
             <div>
                 <h1 className={styles.pageTitle}>Form Preview</h1>
-                <div className={`${common.card} ${common.emptyState}`}>
+                <div className={`${common.card}`}>
                     No form schema found.
                     <br />
                     <button
@@ -114,7 +50,7 @@ export default function FormPreviewPage() {
     }
 
     return (
-        <div className={styles.page}>
+        <div>
             <div className={styles.pageHeader}>
                 <div>
                     <h1 className={styles.pageTitle}>Form Preview</h1>
@@ -136,7 +72,11 @@ export default function FormPreviewPage() {
                                     {field.label}
                                 </label>
                             )}
-                            {renderField(field, values[field.id], handleChange)}
+                            <FormFieldRenderer
+                                field={field}
+                                value={values[field.id]}
+                                onChange={handleChange}
+                            />
                         </div>
                     ))}
                 </div>

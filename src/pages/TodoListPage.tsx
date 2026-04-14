@@ -93,7 +93,7 @@ export default function TodoListPage() {
     }
 
     return (
-        <div className={styles.page}>
+        <div>
             <div className={styles.pageHeader}>
                 <h1 className={styles.pageTitle}>Todo List</h1>
             </div>
