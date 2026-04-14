@@ -3,7 +3,7 @@ import { useState } from 'react'
 export function todoStorage(key, defaultValue) {
     const [value, setValue] = useState(() => {
         try {
-            const stored = todoStorage.getItem(key)
+            const stored = localStorage.getItem(key)
             return stored !== null ? JSON.parse(stored) : defaultValue
         } catch {
             return defaultValue
@@ -16,9 +16,9 @@ export function todoStorage(key, defaultValue) {
             : newValue
         setValue(resolved)
         try {
-            todoStorage.setItem(key, JSON.stringify(resolved))
+            localStorage.setItem(key, JSON.stringify(resolved))
         } catch {
-            //catch errorshow
+
         }
     }
 

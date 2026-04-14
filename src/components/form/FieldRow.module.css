@@ -28,9 +28,5 @@
     padding: 2px 8px;
     color: var(--color-primary);
 }
-.requiredPill {
-    font-size: 11px;
-    padding: 2px 8px;
-    background: var(--color-danger-light);
-}
+
 .actions { display: flex; gap: 2px; flex-shrink: 0; }

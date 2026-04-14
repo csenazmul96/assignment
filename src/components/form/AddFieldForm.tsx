@@ -22,6 +22,7 @@ export default function AddFieldForm({ onAdd }) {
 
     const handleAdd = () => {
         onAdd({ ...form, label: form.label.trim() })
+        setForm(EMPTY)
     }
 
     return (
