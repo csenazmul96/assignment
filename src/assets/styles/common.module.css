@@ -4,14 +4,9 @@
     align-items: center;
     gap: 6px;
     padding: 8px 16px;
-    border-radius: var(--radius-md);
     border: 1px solid transparent;
-    font-family: var(--font-sans);
     font-size: 13px;
-    font-weight: 500;
     cursor: pointer;
-    transition: background 0.15s, border-color 0.15s;
-    white-space: nowrap;
 }
 .btnPrimary {
     background: var(--color-primary);
@@ -55,13 +50,9 @@
     width: 100%;
     padding: 8px 12px;
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    font-family: var(--font-sans);
     font-size: 13px;
     color: var(--color-text-primary);
-    background: var(--color-surface);
     outline: none;
-    transition: border-color 0.15s, box-shadow 0.15s;
 }
 .input:focus,
 .select:focus,
@@ -79,22 +70,15 @@
 .label {
     display: block;
     font-size: 12px;
-    font-weight: 500;
     color: var(--color-text-secondary);
     margin-bottom: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
 }
 
 .badge {
     display: inline-flex;
     align-items: center;
     padding: 2px 10px;
-    border-radius: var(--radius-full);
     font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
 }
 .badgeSuccess {
     background: var(--color-success-bg);
@@ -108,7 +92,6 @@
 .card {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
 }
 
 .emptyState {
