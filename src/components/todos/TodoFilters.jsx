@@ -2,8 +2,13 @@ import common from '../../assets/styles/common.module.css'
 import styles from './TodoFilters.module.css'
 
 export default function TodoFilters({
-                                        users, selectedUser, selectedStatus, search,
-                                        onUserChange, onStatusChange, onSearchChange
+                                        users = [],  // ✅ default to empty array — safe while users are loading
+                                        selectedUser,
+                                        selectedStatus,
+                                        search,
+                                        onUserChange,
+                                        onStatusChange,
+                                        onSearchChange,
                                     }) {
     return (
         <div className={styles.filters}>
@@ -17,6 +22,7 @@ export default function TodoFilters({
                     onChange={e => onSearchChange(e.target.value)}
                 />
             </div>
+
             <div className={styles.filterGroup}>
                 <label className={common.label}>User</label>
                 <select
@@ -32,6 +38,7 @@ export default function TodoFilters({
                     ))}
                 </select>
             </div>
+
             <div className={styles.filterGroup}>
                 <label className={common.label}>Status</label>
                 <select

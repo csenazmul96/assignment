@@ -1,13 +1,13 @@
 import {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
-import { todoStorage } from '../hooks/todoStorage'
+import { formStorage } from '../hooks/formStorage.js'
 import FieldRow from '../components/form/FieldRow.jsx'
 import AddFieldForm from '../components/form/AddFieldForm.jsx'
 import common from '../assets/styles/common.module.css'
 import styles from './FormBuilderPage.module.css'
 
 export default function FormBuilderPage() {
-    const [savedFields, setSavedFields] = todoStorage('form-schema', [])
+    const [savedFields, setSavedFields] = formStorage('form-schema', [])
     const [fields, setFields] = useState(savedFields)
     const [saved, setSaved] = useState(false)
     const navigate = useNavigate()

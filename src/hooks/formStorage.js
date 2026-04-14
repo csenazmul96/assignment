@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export function todoStorage(key, defaultValue) {
+export function formStorage(key, defaultValue) {
     const [value, setValue] = useState(() => {
         try {
             const stored = localStorage.getItem(key)
@@ -17,8 +17,8 @@ export function todoStorage(key, defaultValue) {
         setValue(resolved)
         try {
             localStorage.setItem(key, JSON.stringify(resolved))
-        } catch {
-
+        } catch(e) {
+            console.log(e.message)
         }
     }
 

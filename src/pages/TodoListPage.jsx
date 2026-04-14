@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import {todoStorage} from '../hooks/todoStorage'
+import { useSearchParams } from 'react-router-dom'
 import TodoFilters from '../components/todos/TodoFilters.jsx'
 import TodoTable from '../components/todos/TodoTable.jsx'
 import Pagination from '../components/todos/Pagination.jsx'
@@ -21,39 +21,53 @@ async function fetchUsers() {
 }
 
 export default function TodoListPage() {
-    const [selectedUser, setSelectedUser] = todoStorage('todo-filter-user', 'all')
-    const [selectedStatus, setSelectedStatus] = todoStorage('todo-filter-status', 'all')
-    const [currentPage, setCurrentPage] = todoStorage('todo-filter-page', 1)
-    const [search, setSearch] = todoStorage('todo-filter-search', '')
+    const [searchParams, setSearchParams] = useSearchParams()
+
+    const selectedUser   = searchParams.get('user')   ?? 'all'
+    const selectedStatus = searchParams.get('status') ?? 'all'
+    const search         = searchParams.get('search') ?? ''
+    const currentPage    = Number(searchParams.get('page') ?? 1)
+
+    const setFilters = (updates) => {
+        setSearchParams(prev => {
+            const next = new URLSearchParams(prev)
+            Object.entries(updates).forEach(([key, value]) => {
+                const isDefault =
+                    value === 'all' ||
+                    value === ''    ||
+                    value === 1     ||
+                    value === '1'
+                if (isDefault) {
+                    next.delete(key)
+                } else {
+                    next.set(key, String(value))
+                }
+            })
+            return next
+        })
+    }
 
     const {
         data: todos = [],
-        isLoading: todosLoading,
-        isError
-    } = useQuery({ queryKey: ['todos'], queryFn: fetchTodos })
+        isLoading: todosLoading
+    } = useQuery({ queryKey: ['todos'], queryFn: fetchTodos, staleTime: Infinity })
 
     const {
         data: users = [],
         isLoading: usersLoading
-    } = useQuery({ queryKey: ['users'], queryFn: fetchUsers })
+    } = useQuery({ queryKey: ['users'], queryFn: fetchUsers, staleTime: Infinity })
 
-    // Build a userId -> name lookup map
-    const userMap = useMemo(() => {
-        return users.reduce((acc, user) => {
+    const enrichedTodos = useMemo(() => {
+        const userMap = users.reduce((acc, user) => {
             acc[user.id] = user.name
             return acc
         }, {})
-    }, [users])
-
-
-    const enrichedTodos = useMemo(() => {
         return todos.map(todo => ({
             ...todo,
             userName: userMap[todo.userId] ?? `User ${todo.userId}`,
         }))
-    }, [todos, userMap])
+    }, [todos, users])
 
-    //Apply filters
     const filtered = useMemo(() => {
         return enrichedTodos.filter(todo => {
             const matchUser =
@@ -70,27 +84,11 @@ export default function TodoListPage() {
     }, [enrichedTodos, selectedUser, selectedStatus, search])
 
     const totalPages = Math.max(1, Math.ceil(filtered.length / parPage))
-    const safePage = Math.min(currentPage, totalPages)
-    const paginated = filtered.slice(
+    const safePage   = Math.min(currentPage, totalPages)
+    const paginated  = filtered.slice(
         (safePage - 1) * parPage,
         safePage * parPage
     )
-
-
-    const handleUserChange = (val) => {
-        setSelectedUser(val);
-        setCurrentPage(1)
-    }
-
-    const handleStatusChange = (val) => {
-        setSelectedStatus(val);
-        setCurrentPage(1)
-    }
-
-    const handleSearchChange = (val) => {
-        setSearch(val);
-        setCurrentPage(1)
-    }
 
     return (
         <div>
@@ -103,23 +101,20 @@ export default function TodoListPage() {
                 selectedUser={selectedUser}
                 selectedStatus={selectedStatus}
                 search={search}
-                onUserChange={handleUserChange}
-                onStatusChange={handleStatusChange}
-                onSearchChange={handleSearchChange}
+                onUserChange={(val) => setFilters({ user: val, page: 1 })}
+                onStatusChange={(val) => setFilters({ status: val, page: 1 })}
+                onSearchChange={(val) => setFilters({ search: val, page: 1 })}
             />
 
-            {isError && (
-                <div className={styles.error}>
-                    Failed to load todos. Please refresh.
-                </div>
-            )}
-
-            <TodoTable todos={paginated}  />
+            <TodoTable
+                todos={paginated}
+                isLoading={todosLoading || usersLoading}
+            />
 
             <Pagination
                 currentPage={safePage}
                 totalPages={totalPages}
-                onPageChange={setCurrentPage}
+                onPageChange={(page) => setFilters({ page })}
             />
         </div>
     )
