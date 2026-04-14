@@ -93,10 +93,3 @@
     background: var(--color-surface);
     border: 1px solid var(--color-border);
 }
-
-.emptyState {
-    text-align: center;
-    padding: 48px 24px;
-    color: var(--color-text-muted);
-    font-size: 14px;
-}

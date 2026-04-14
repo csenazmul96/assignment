@@ -1,0 +1,14 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.field {
+    display: flex;
+    flex-direction: column;
+}
+.hint {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    margin-top: 4px;
+}
