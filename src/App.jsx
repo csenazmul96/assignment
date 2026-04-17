@@ -1,28 +1,14 @@
-import { Routes, Route, NavLink, Navigate } from 'react-router-dom'
+import { Routes, Route,  Navigate } from 'react-router-dom'
 import TodoListPage from './pages/TodoListPage.jsx'
 import FormBuilderPage from './pages/FormBuilderPage.jsx'
 import FormPreviewPage from './pages/FormPreviewPage.jsx'
 import styles from './App.module.css'
+import Header from "./components/common-ui/Header.jsx";
 
 export default function App() {
   return (
       <div className={styles.app}>
-        <header className={styles.header}>
-          <div className={styles.headerInner}>
-            <nav className={styles.nav}>
-              <NavLink to="/todos" className={({ isActive }) => isActive ? `${styles.navLink} ${styles.navLinkActive}` : styles.navLink } >
-                Todo List
-              </NavLink>
-              <NavLink to="/form-builder" className={({ isActive }) => isActive? `${styles.navLink} ${styles.navLinkActive}`: styles.navLink}>
-                Form Builder
-              </NavLink>
-              <NavLink to="/form-preview" className={({ isActive }) =>isActive? `${styles.navLink} ${styles.navLinkActive}`: styles.navLink}>
-                Form Preview
-              </NavLink>
-            </nav>
-          </div>
-        </header>
-
+        <Header />
         <main className={styles.main}>
           <Routes>
             <Route path="/" element={<Navigate to="/todos" replace />} />
